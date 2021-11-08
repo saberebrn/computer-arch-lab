@@ -21,7 +21,7 @@ module Condition_Check(input[3:0] status, input[3 : 0] Condition, output reg Out
 	assign C = status[2];
 	assign N = status[1];
 	assign V = status[0];
-	always@(SR, Condition)begin
+	always@(status, Condition)begin
 	  case(Condition)
 	    `COND_EQ : Out = Z ;
 			`COND_NE : Out = ~Z ;

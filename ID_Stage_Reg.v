@@ -3,12 +3,12 @@ module ID_Stage_Reg(
     input wb_enable_in, mem_read_enable_in, mem_write_enable_in,
     input branch_enable_in, S_in,
     input [3:0] exec_cmd_in,
-    input [31:0] PC_in, Val_Rn_in, Val_Rm_in
+    input [31:0] PC_in, Val_Rn_in, Val_Rm_in,
     input immidiate_in,
     input [11:0] Shift_operand_in,
     input [23:0] Signed_immidiate_24_in,
     input [3:0] Dest_in,
-    input [3:0]Status_in
+    input [3:0] Status_in,
 
     output reg wb_enable, mem_read_enable, mem_write_enable, branch_enable, S_out,
     output reg [3:0] exec_cmd,
@@ -22,7 +22,7 @@ module ID_Stage_Reg(
 );
     always @(posedge clk, posedge rst, flush) begin
         if(rst || flush) begin
-			PC <= 32'b0;
+            PC <= 32'b0;
             wb_enable <= 1'b0;
             mem_read_enable <= 1'b0;
             mem_write_enable <= 1'b0;
@@ -30,7 +30,7 @@ module ID_Stage_Reg(
             S_out <= 1'b0;
             exec_cmd <= 32'b0;
             Val_Rn <= 32'b0;
-            Val_Rm_in <= 32'b0;
+            Val_Rm <= 32'b0;
             immidiate <= 1'b0;
             Shift_operand <= 12'b0;
             Signed_immidiate_24 <= 24'b0;
@@ -41,12 +41,12 @@ module ID_Stage_Reg(
             PC <= PC_in;
             wb_enable <= wb_enable_in;
             mem_read_enable <= mem_read_enable_in;
-            mem_write_enable <= mem_read_enable_in;
+            mem_write_enable <= mem_write_enable_in;
             branch_enable <= branch_enable_in;
             S_out <= S_in;
             exec_cmd <= exec_cmd_in;
             Val_Rn <= Val_Rn_in;
-            Val_Rm_in <= Val_Rm_in;
+            Val_Rm <= Val_Rm_in;
             immidiate <= immidiate_in;
             Shift_operand <= Shift_operand_in;
             Signed_immidiate_24 <= Signed_immidiate_24_in;

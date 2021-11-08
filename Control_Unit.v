@@ -27,98 +27,93 @@
 `define STR_OPCODE 4'b0100
 
 `define MODE_MEM 2'b01
-`define MODE_BRANCH 2'b10
-`define MODE_NORMAL 2'b00
-
-`define 
+`define MODE_BRANCH 3'b10
+`define MODE_NORMAL 2'b00 
 
 module Control_Unit(
   input[1:0] mode, input[3:0] opcode, input S_in,
   output reg[3:0] exec_cmd,
   output reg mem_read_enable, mem_write_enable, wb_en, branch_enable, S_out
-  );
+);
 
   always@(mode, opcode, S_in) begin
-      {exec_cmd, mem_read_enable, mem_write_enable, wb_en, B, S_out} = 9'b000000000;
+      {exec_cmd, mem_read_enable, mem_write_enable, wb_en, branch_enable, S_out} <= 9'b000000000;
       case(mode)
 
         `MODE_MEM: begin
-          exec_cmd = `ADD_ALU_CMD;
+          exec_cmd <= `ADD_ALU_CMD;
           case(S_in)
-           1'b0: begin
-             mem_read_enable = 1'b1;
-             wb_en = 1'b1;
-           end
-           1'b1: begin
-             mem_write_enable = 1'b1;
-           end
+            1'b1: begin
+              mem_read_enable <= 1'b1;
+              wb_en <= 1'b1;
+            end
+            1'b0: begin
+              mem_write_enable <= 1'b1;
+            end
+          endcase
         end
 
         `MODE_BRANCH: begin
-          branch_enable = 1'b1;
+          branch_enable <= 1'b1;
         end
 
         `MODE_NORMAL: begin
-          S_out = S_in;
+          S_out <= S_in;
           case(opcode)
 
             `MOV_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `MOV_ALU_CMD;
+              wb_en <= 1'b1;
+              exec_cmd <= `MOV_ALU_CMD;
             end
             `MOVN_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `MOVN_ALU_CMD;
+              wb_en <= 1'b1;
+              exec_cmd <= `MOVN_ALU_CMD;
             end
             `ADD_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `ADD_ALU_CMD;
+              wb_en <= 1'b1;
+              exec_cmd <= `ADD_ALU_CMD;
             end
             `ADC_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `ADC_ALU_CMD;
+              wb_en <= 1'b1;
+              exec_cmd <= `ADC_ALU_CMD;
             end
             `SUB_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `SUB_ALU_CMD;
+              wb_en <= 1'b1;
+              exec_cmd <= `SUB_ALU_CMD;
             end
             `SBC_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `SBC_ALU_CMD;
+              wb_en <= 1'b1;
+              exec_cmd <= `SBC_ALU_CMD;
             end
             `AND_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `AND_ALU_CMD;
+              wb_en <= 1'b1;
+              exec_cmd <= `AND_ALU_CMD;
             end
             `ORR_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `ORR_ALU_CMD;
+              wb_en <= 1'b1;
+              exec_cmd <= `ORR_ALU_CMD;
             end
             `EOR_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `EOR_ALU_CMD;
+              wb_en <= 1'b1;
+              exec_cmd <= `EOR_ALU_CMD;
             end
             `CMP_OPCODE: begin 
-              S_out = 1'b1;
-              exec_cmd = `CMP_ALU_CMD;
+              S_out <= 1'b1;
+              exec_cmd <= `CMP_ALU_CMD;
             end 
             `TST_OPCODE: begin
-              S_out = 1'b1;
-              exec_cmd = `TST_ALU_CMD;
+              S_out <= 1'b1;
+              exec_cmd <= `TST_ALU_CMD;
             end
             `LDR_OPCODE: begin 
-              wb_en = 1'b1;
-              exec_cmd = `LDR_OPCODE;              
+              wb_en <= 1'b1;
+              exec_cmd <= `LDR_OPCODE;              
             end
             `STR_OPCODE: begin 
-              exec_cmd = `STR_ALU_CMD;
+              exec_cmd <= `STR_ALU_CMD;
             end
-
-        end 
+        endcase 
+      end
+    endcase
   end
-
 endmodule
-
-
-
-

@@ -21,10 +21,9 @@ module top_level(input rst, clk);
   
     IF_Module if_module(rst, clk, freeze, flush, Branch_taken, BranchAddr, pc_1, Instruction);
     ID_Module id_module(
-        rst, clk, freeze, flush, WBEnable, pc_1, Instruction, Result_WB, Dest_wb, status,
-        wb_enable_exec, mem_read_enable, mem_write_enable, branch_enable, S, 
-        exec_cmd, pc_2,  Val_Rn, Val_Rm, immidiate,
-        Shift_operand, Signed_immidiate_24, Dest, Status
+        rst, clk, flush, WBEnable, pc_1, Instruction, Result_WB, Dest_wb, status, wb_enable_exec, 
+        mem_read_enable, mem_write_enable, branch_enable, S,exec_cmd, pc_2,  Val_Rn, Val_Rm, 
+        immidiate, Shift_operand, Signed_immidiate_24, Dest, Status
     );
     EXE_Module exe_module(rst, clk, pc_2, pc_3);
     MEM_Module mem_module(rst, clk, pc_3, pc_4);
