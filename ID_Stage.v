@@ -23,7 +23,7 @@ module ID_Stage(
 	assign exec_cmd = ~cond_out ? 0: exec;
 	assign Shift_operand = Instruction[11:0];
 	assign immidiate = Instruction[25];
-    assign Dest = Instruction[15:12];
+    assign dest = Instruction[15:12];
 	assign Signed_immidiate_24 = Instruction[23:0];
 
     RegisterFile RF(clk, rst, Src_Rn, Src_Rm, Dest_wb, Result_WB, writeBackEn, Val_Rn, Val_Rm);

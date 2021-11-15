@@ -1,7 +1,7 @@
 module RegisterFile(
     input clk, rst,
     input[3:0] src1, src2, Dest_wb,
-    input[31:0] Result_WB , input writeBackEn,
+    input [31:0] Result_WB , input writeBackEn,
     output [31:0] reg1, reg2
 );
 
@@ -9,7 +9,7 @@ module RegisterFile(
     integer i=0;
     assign reg1 = registers[src1];
     assign reg2 = registers[src2];
-    always @(negedge clk, posedge rst)begin
+    always @(negedge clk, posedge rst) begin
         if(rst) begin
             for(i = 0; i < 15 ; i = i + 1'b1)
                 registers[i] <= i;        

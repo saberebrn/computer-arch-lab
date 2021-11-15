@@ -1,9 +1,9 @@
 module WB_Stage(
-    input clk, rst,
-    input [31:0] PC_in,
-    output [31:0] PC
+    input rst, clk, mem_read_enable,
+    input [31:0] alu_res, mem_res,
+    output [31:0] wb_value
 );
 
-    assign PC = PC_in;
+    assign wb_value = mem_read_enable ? mem_res : alu_res;
 
 endmodule

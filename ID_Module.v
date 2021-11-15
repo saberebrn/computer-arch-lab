@@ -15,8 +15,7 @@ module ID_Module(
 
     wire wb_enable_connector, mem_read_enable_connector, mem_write_enable_connector;
     wire branch_enable_connector, S_connector, immidiate_connector;
-    wire [3:0] Dest_connector, exec_cmd_connector, Status_connector;
-    wire [3:0] dest_connector, status_connector;
+    wire [3:0] dest_connector, exec_cmd_connector;
     wire [11:0] Shift_operand_connector;
     wire [23:0] Signed_immidiate_24_connector;
     wire [31:0] Val_Rn_connector, Val_Rm_connector;
@@ -59,8 +58,8 @@ module ID_Module(
         immidiate_connector,
         Shift_operand_connector,
         Signed_immidiate_24_connector,
-        Dest_connector,
-        Status_connector,
+        dest_connector,
+        status_in,
         wb_enable,
         mem_read_enable,
         mem_write_enable,

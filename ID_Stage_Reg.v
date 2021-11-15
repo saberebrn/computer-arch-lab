@@ -20,7 +20,7 @@ module ID_Stage_Reg(
     output reg [3:0]Dest,
     output reg [3:0]Status
 );
-    always @(posedge clk, posedge rst, flush) begin
+    always @(posedge clk, posedge rst, posedge flush) begin
         if(rst || flush) begin
             PC <= 32'b0;
             wb_enable <= 1'b0;
