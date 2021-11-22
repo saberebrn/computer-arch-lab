@@ -2,7 +2,6 @@ module Status_Register (
     input clk, rst,
     input ld,
     input [3:0] data_in,
-
     output reg [3:0] data_out
 );
 

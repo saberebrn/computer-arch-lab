@@ -1,6 +1,6 @@
 
 module IF_Module(
-    input clk, rst, freeze, flush, Branch_taken, 
+    input rst, clk, freeze, flush, Branch_taken, 
     input [31:0] BranchAddr,
     output [31:0] PC, Instruction
 );

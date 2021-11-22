@@ -1,5 +1,5 @@
 module EXE_Module(
-    input clk, rst, wb_enable, mem_read_enable, mem_write_enable, immidiate,
+    input rst, clk, wb_enable, mem_read_enable, mem_write_enable, immidiate,
     input [3:0] exec_cmd, Status, dest,
     input [11:0] Shift_operand,
     input [23:0] Signed_immidiate_24,
@@ -11,8 +11,8 @@ module EXE_Module(
 
     wire [31:0] alo_connector;
     EXE_Stage logic_process(
-        clk, 
-        rst,
+        rst, 
+        clk,
         mem_read_enable, 
         mem_write_enable, 
         immidiate,
