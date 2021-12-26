@@ -7,8 +7,10 @@ module EXE_Stage(
     output [3:0] Status_out,
     output [31:0] jump_addr, alu_out
 );
-    wire [31:0] val2;
-    assign jump_addr = PC_in + {{6{Signed_immidiate_24[23]}}, Signed_immidiate_24, 2'b0};
+
+    wire [31:0] val2, jump_addr_tmp;
+    assign jump_addr_tmp = PC_in + {{8{Signed_immidiate_24[23]}}, Signed_immidiate_24};
+    assign jump_addr = {jump_addr_tmp[31:2], 2'b00};
 
     Val2_Generator val2_gen(
         Val_Rm,

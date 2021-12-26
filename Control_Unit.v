@@ -7,10 +7,10 @@
 `define AND_ALU_CMD 4'b0110
 `define ORR_ALU_CMD 4'b0111
 `define EOR_ALU_CMD 4'b1000
-`define CMP_ALU_CMD 4'b1100
-`define TST_ALU_CMD 4'b1110
-`define LDR_ALU_CMD 4'b1010
-`define STR_ALU_CMD 4'b1010
+`define CMP_ALU_CMD 4'b0100
+`define TST_ALU_CMD 4'b0110
+`define LDR_ALU_CMD 4'b0010
+`define STR_ALU_CMD 4'b0010
 
 `define MOV_OPCODE 4'b1101
 `define MOVN_OPCODE 4'b1111

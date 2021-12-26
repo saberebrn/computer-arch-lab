@@ -6,7 +6,7 @@ module top_level(input clk, rst);
     wire flush, wb_enable_exec, mem_read_enable_exec, mem_write_enable_exec, branch_enable, S, immidiate, wb_enable_mem, mem_read_enable_mem, mem_write_enable_mem, write_back_enable_wb, mem_read_enable_wb;
     wire two_src, hazard_detected;
     assign flush = branch_enable;
-
+    
     IF_Module if_module(
         rst, clk, hazard_detected, flush, branch_enable, BranchAddr, pc_1, Instruction
     );

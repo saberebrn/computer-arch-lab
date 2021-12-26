@@ -20,8 +20,8 @@ module ID_Stage_Reg(
     output reg [3:0]Dest,
     output reg [3:0]Status
 );
-    always @(posedge clk, posedge rst, posedge flush) begin
-        if(rst || flush) begin
+    always @(posedge clk, posedge rst) begin
+        if(rst) begin
             PC <= 32'b0;
             wb_enable <= 1'b0;
             mem_read_enable <= 1'b0;
@@ -53,5 +53,24 @@ module ID_Stage_Reg(
             Dest <= Dest_in;
             Status <= Status_in;
         end 
+    end
+    
+    always @(negedge clk) begin
+        if(flush) begin
+            PC <= 32'b0;
+            wb_enable <= 1'b0;
+            mem_read_enable <= 1'b0;
+            mem_write_enable <= 1'b0;
+            branch_enable <= 1'b0;
+            S_out <= 1'b0;
+            exec_cmd <= 32'b0;
+            Val_Rn <= 32'b0;
+            Val_Rm <= 32'b0;
+            immidiate <= 1'b0;
+            Shift_operand <= 12'b0;
+            Signed_immidiate_24 <= 24'b0;
+            Dest <= 4'b0;
+            Status <= 4'b0;
+        end
     end
 endmodule

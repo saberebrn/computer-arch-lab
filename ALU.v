@@ -67,10 +67,12 @@ module ALU(
                 alu_out <= alu_in1 ^ alu_in2;  
             end
         endcase
+    end
 
+    always @(alu_out) begin
         status_register[3] <= (alu_out == 32'b0);
         status_register[1] <= alu_out[31] ;
-
     end
+
 
 endmodule
