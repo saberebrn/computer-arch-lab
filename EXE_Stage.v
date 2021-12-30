@@ -1,9 +1,9 @@
 module EXE_Stage(
-    input rst, clk, mem_read_enable, mem_write_enable, immidiate,
+    input rst, clk, mem_read_enable, mem_write_enable, immidiate, immadiate_32_enable,
     input [3:0] exec_cmd, Status,
     input [11:0] shift_operand, 
     input [23:0] Signed_immidiate_24,
-    input [31:0] PC_in, Val_Rn, Val_Rm,
+    input [31:0] instruction, PC_in, Val_Rn, Val_Rm,
     output [3:0] Status_out,
     output [31:0] jump_addr, alu_out
 );
@@ -13,9 +13,11 @@ module EXE_Stage(
     assign jump_addr = {jump_addr_tmp[31:2], 2'b00};
 
     Val2_Generator val2_gen(
+        instruction,
         Val_Rm,
         shift_operand,
         immidiate,
+        immadiate_32_enable,
         mem_read_enable | mem_write_enable,
         val2
     );

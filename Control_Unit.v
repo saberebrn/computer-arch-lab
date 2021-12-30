@@ -25,13 +25,14 @@
 `define TST_OPCODE 4'b1000
 `define LDR_OPCODE 4'b0100
 `define STR_OPCODE 4'b0100
+`define ADDV_OPCODE 4'b0011
 
 `define MODE_MEM 2'b01
 `define MODE_BRANCH 3'b10
 `define MODE_NORMAL 2'b00 
 
 module Control_Unit(
-  input[1:0] mode, input[3:0] opcode, input S_in,
+  input[1:0] mode, input[3:0] opcode, input S_in, imm_32_en,
   output reg[3:0] exec_cmd,
   output reg mem_read_enable, mem_write_enable, wb_en, branch_enable, S_out
 );
@@ -115,5 +116,10 @@ module Control_Unit(
         endcase 
       end
     endcase
+
+    if (imm_32_en) begin
+      wb_en <= 1'b1;
+      exec_cmd <= `ADD_ALU_CMD;
+    end
   end
 endmodule

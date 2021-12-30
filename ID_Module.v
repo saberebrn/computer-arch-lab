@@ -2,10 +2,10 @@ module ID_Module(
     input rst, clk, flush, wb_enable_in, hazard,
     input [31:0] PC_in, Instruction, Result_WB, 
     input [3:0]Dest_wb, status_in,
-    output wb_enable, mem_read_enable, mem_write_enable, branch_enable, S_out, two_src,
+    output wb_enable, mem_read_enable, mem_write_enable, branch_enable, S_out, two_src, imm_32_enable,
     output [3:0] exec_cmd, Rn, Rm,
     output [31:0] PC,
-    output [31:0] Val_Rn, Val_Rm,
+    output [31:0] Instruction_out, Val_Rn, Val_Rm,
     output immidiate,
     output [11:0] Shift_operand, 
     output [23:0] Signed_immidiate_24,
@@ -14,7 +14,7 @@ module ID_Module(
 );
 
     wire wb_enable_connector, mem_read_enable_connector, mem_write_enable_connector;
-    wire branch_enable_connector, S_connector, immidiate_connector;
+    wire branch_enable_connector, S_connector, immidiate_connector, imm_32_enable_connector;
     wire [3:0] dest_connector, exec_cmd_connector;
     wire [11:0] Shift_operand_connector;
     wire [23:0] Signed_immidiate_24_connector;
@@ -36,6 +36,7 @@ module ID_Module(
         S_connector,
         immidiate_connector,
         two_src,
+        imm_32_enable_connector,
         exec_cmd_connector,
         dest_connector,
         Rn,
@@ -55,7 +56,9 @@ module ID_Module(
         mem_write_enable_connector,
         branch_enable_connector,
         S_connector,
+        imm_32_enable_connector,
         exec_cmd_connector,
+        Instruction,
         PC_in,
         Val_Rn_connector,
         Val_Rm_connector,
@@ -69,8 +72,10 @@ module ID_Module(
         mem_write_enable,
         branch_enable,
         S_out,
+        imm_32_enable,
         exec_cmd,
         PC,
+        Instruction_out,
         Val_Rn,
         Val_Rm,
         immidiate,

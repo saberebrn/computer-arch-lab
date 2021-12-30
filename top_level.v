@@ -1,10 +1,10 @@
 module top_level(input clk, rst);
-    wire [31:0] pc_1, pc_2, pc_3, pc_4, pc_5, Instruction, BranchAddr, Result_WB, alu_out, val_rm_exec, Val_Rn, Val_Rm, alu_res_mem, mem_out;
+    wire [31:0] pc_1, pc_2, pc_3, pc_4, pc_5, Instruction, BranchAddr, Result_WB, alu_out, val_rm_exec, Val_Rn, Val_Rm, alu_res_mem, mem_out, instruction_id;
     wire [23:0] Signed_immidiate_24;
     wire [11:0] Shift_operand;
     wire [3:0] exec_cmd, Dest, status_out_exec, status_in_id, status_out_id, dest_out_exec, dest_out_mem, Rn, Rm;
     wire flush, wb_enable_exec, mem_read_enable_exec, mem_write_enable_exec, branch_enable, S, immidiate, wb_enable_mem, mem_read_enable_mem, mem_write_enable_mem, write_back_enable_wb, mem_read_enable_wb;
-    wire two_src, hazard_detected;
+    wire two_src, hazard_detected, imm_32_enable;
     assign flush = branch_enable;
     
     IF_Module if_module(
@@ -13,13 +13,13 @@ module top_level(input clk, rst);
 
     ID_Module id_module(
         rst, clk, flush, write_back_enable_wb, hazard_detected, pc_1, Instruction, Result_WB, dest_out_mem, status_in_id, wb_enable_exec, 
-        mem_read_enable_exec, mem_write_enable_exec, branch_enable, S, two_src, exec_cmd, Rn, Rm, pc_2,  Val_Rn, Val_Rm, 
+        mem_read_enable_exec, mem_write_enable_exec, branch_enable, S, two_src, imm_32_enable, exec_cmd, Rn, Rm, pc_2, instruction_id, Val_Rn, Val_Rm, 
         immidiate, Shift_operand, Signed_immidiate_24, Dest, status_out_id
     );
     
     EXE_Module exe_module(
-        rst, clk, wb_enable_exec, mem_read_enable_exec, mem_write_enable_exec, immidiate,
-        exec_cmd, status_out_id, Dest, Shift_operand, Signed_immidiate_24, pc_2, Val_Rn, Val_Rm,
+        rst, clk, wb_enable_exec, mem_read_enable_exec, mem_write_enable_exec, immidiate, imm_32_enable,
+        exec_cmd, status_out_id, Dest, Shift_operand, Signed_immidiate_24, instruction_id, pc_2, Val_Rn, Val_Rm,
         wb_enable_mem, mem_read_enable_mem, mem_write_enable_mem,
         status_out_exec, dest_out_exec, BranchAddr, alu_out, val_rm_exec
     );

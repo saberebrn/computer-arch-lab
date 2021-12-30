@@ -1,7 +1,7 @@
 module Val2_Generator(
-    input [31:0] rm,
+    input [31:0] instruction, rm,
     input [11:0] shift_operand,
-    input immd, is_mem_command,
+    input immd, immadiate_32_enable, is_mem_command,
     output reg [31:0] val2_out
 );
 
@@ -12,7 +12,10 @@ module Val2_Generator(
 
     always @(*) begin
         val2_out = 32'b0;
-        if (is_mem_command == 1) begin
+        if (immadiate_32_enable == 1) begin
+            val2_out <= instruction;
+        end
+        else if (is_mem_command == 1) begin
             val2_out = {20'b0, shift_operand};
         end
         else begin

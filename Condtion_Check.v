@@ -15,30 +15,35 @@
 `define COND_AL 4'b1110
 `define COND_NK 4'b1111 
 
-module Condition_Check(input[3:0] status, input[3 : 0] Condition, output reg Out);
+module Condition_Check(input imm_32_enable, input[3:0] status, input[3 : 0] Condition, output reg Out);
   wire N,Z,C,V;
 	assign Z = status[3];
 	assign C = status[2];
 	assign N = status[1];
 	assign V = status[0];
 	always@(status, Condition)begin
-	  case(Condition)
-	    `COND_EQ : Out = Z ;
-			`COND_NE : Out = ~Z ;
-			`COND_CS_HS : Out = C ;
-			`COND_CC_LO : Out = ~C ;
-			`COND_MI : Out = N ;
-			`COND_PL : Out = ~N ;
-			`COND_VS : Out = V ;
-			`COND_VC : Out = ~V ;
-			`COND_HI : Out = ((C) & (~Z)) ;
-			`COND_LS : Out = ((~C) | (Z)) ;
-			`COND_GE : Out = (N == V) ;
-			`COND_LT : Out = (N != V) ;
-			`COND_GT : Out = ((Z == 0) & (N == V)) ;
-			`COND_LE : Out = ((Z == 1) & (N != V)) ;
-			`COND_AL : Out = 1'b1;
-			`COND_NK : Out = 1'b0;
+	  if(imm_32_enable) begin
+		Out <= 1'b1;
+	  end
+	  else begin 
+		case(Condition)
+			`COND_EQ : Out = Z ;
+				`COND_NE : Out = ~Z ;
+				`COND_CS_HS : Out = C ;
+				`COND_CC_LO : Out = ~C ;
+				`COND_MI : Out = N ;
+				`COND_PL : Out = ~N ;
+				`COND_VS : Out = V ;
+				`COND_VC : Out = ~V ;
+				`COND_HI : Out = ((C) & (~Z)) ;
+				`COND_LS : Out = ((~C) | (Z)) ;
+				`COND_GE : Out = (N == V) ;
+				`COND_LT : Out = (N != V) ;
+				`COND_GT : Out = ((Z == 0) & (N == V)) ;
+				`COND_LE : Out = ((Z == 1) & (N != V)) ;
+				`COND_AL : Out = 1'b1;
+				`COND_NK : Out = 1'b0;
 		endcase
+	  end
 	end
 endmodule
