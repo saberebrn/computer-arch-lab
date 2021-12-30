@@ -1,5 +1,5 @@
 module EXE_Stage_Reg(
-    input clk, rst, wb_enable, mem_read_enable, mem_write_enable,
+    input clk, rst, freeze, wb_enable, mem_read_enable, mem_write_enable,
     inout [3:0] dest,
     input [31:0] alu, Val_Rm,
     output reg wb_enable_out, mem_read_enable_out, mem_write_enable_out,
@@ -15,7 +15,7 @@ module EXE_Stage_Reg(
             alu_out = 0;
             Val_Rm_out = 0;
 		end
-        else begin
+        else if (~freeze) begin
             wb_enable_out = wb_enable;
             mem_read_enable_out = mem_read_enable;
             mem_write_enable_out = mem_write_enable;

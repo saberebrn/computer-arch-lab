@@ -1,9 +1,9 @@
 module ID_Module(
-    input rst, clk, flush, wb_enable_in, hazard,
+    input rst, clk, freeze, flush, wb_enable_in, hazard,
     input [31:0] PC_in, Instruction, Result_WB, 
     input [3:0]Dest_wb, status_in,
     output wb_enable, mem_read_enable, mem_write_enable, branch_enable, S_out, two_src,
-    output [3:0] exec_cmd, Rn, Rm,
+    output [3:0] exec_cmd, Rn, Rm, rn_reg, rm_reg,
     output [31:0] PC,
     output [31:0] Val_Rn, Val_Rm,
     output immidiate,
@@ -49,6 +49,7 @@ module ID_Module(
     ID_Stage_Reg register(
         clk,
         rst,
+        freeze,
         flush,
         wb_enable_connector,
         mem_read_enable_connector,
@@ -62,6 +63,8 @@ module ID_Module(
         immidiate_connector,
         Shift_operand_connector,
         Signed_immidiate_24_connector,
+        Rn,
+        Rm,
         dest_connector,
         status_in,
         wb_enable,
@@ -76,6 +79,8 @@ module ID_Module(
         immidiate,
         Shift_operand,
         Signed_immidiate_24,
+        rn_reg,
+        rm_reg,
         Dest,
         Status
     );

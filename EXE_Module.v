@@ -1,5 +1,5 @@
 module EXE_Module(
-    input rst, clk, wb_enable, mem_read_enable, mem_write_enable, immidiate,
+    input rst, clk, freeze, wb_enable, mem_read_enable, mem_write_enable, immidiate,
     input [1:0] val_rn_sel, val_rm_sel,
     input [3:0] exec_cmd, Status, dest,
     input [11:0] Shift_operand,
@@ -39,6 +39,7 @@ module EXE_Module(
     EXE_Stage_Reg register(
         clk, 
         rst, 
+        freeze,
         wb_enable, 
         mem_read_enable, 
         mem_write_enable,
