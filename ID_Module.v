@@ -79,7 +79,11 @@ module ID_Module(
         immidiate,
         Shift_operand,
         Signed_immidiate_24,
+<<<<<<< HEAD
         rn_reg,
+=======
+        rn_reg, 
+>>>>>>> forwarding
         rm_reg,
         Dest,
         Status

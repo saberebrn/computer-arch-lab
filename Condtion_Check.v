@@ -16,27 +16,27 @@
 `define COND_NK 4'b1111 
 
 module Condition_Check(input[3:0] status, input[3 : 0] Condition, output reg Out);
-  wire N,Z,C,V;
-	assign Z = status[3];
+  wire N, zero,C,V;
+	assign zero = status[3];
 	assign C = status[2];
 	assign N = status[1];
 	assign V = status[0];
 	always@(status, Condition)begin
 	  case(Condition)
-	    `COND_EQ : Out = Z ;
-			`COND_NE : Out = ~Z ;
+	    `COND_EQ : Out = zero ;
+			`COND_NE : Out = ~zero ;
 			`COND_CS_HS : Out = C ;
 			`COND_CC_LO : Out = ~C ;
 			`COND_MI : Out = N ;
 			`COND_PL : Out = ~N ;
 			`COND_VS : Out = V ;
 			`COND_VC : Out = ~V ;
-			`COND_HI : Out = ((C) & (~Z)) ;
-			`COND_LS : Out = ((~C) | (Z)) ;
+			`COND_HI : Out = ((C) & (~zero)) ;
+			`COND_LS : Out = ((~C) | (zero)) ;
 			`COND_GE : Out = (N == V) ;
 			`COND_LT : Out = (N != V) ;
-			`COND_GT : Out = ((Z == 0) & (N == V)) ;
-			`COND_LE : Out = ((Z == 1) & (N != V)) ;
+			`COND_GT : Out = ((zero == 0) & (N == V)) ;
+			`COND_LE : Out = ((zero == 1) & (N != V)) ;
 			`COND_AL : Out = 1'b1;
 			`COND_NK : Out = 1'b0;
 		endcase
