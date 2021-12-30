@@ -7,7 +7,7 @@ module ID_Stage_Reg(
     input immidiate_in,
     input [11:0] Shift_operand_in,
     input [23:0] Signed_immidiate_24_in,
-    input [3:0] Dest_in,
+    input [3:0] rn_in, rm_in, Dest_in,
     input [3:0] Status_in,
 
     output reg wb_enable, mem_read_enable, mem_write_enable, branch_enable, S_out,
@@ -17,7 +17,7 @@ module ID_Stage_Reg(
     output reg immidiate,
     output reg [11:0] Shift_operand, 
     output reg [23:0] Signed_immidiate_24,
-    output reg [3:0]Dest,
+    output reg [3:0]rn, rm, Dest,
     output reg [3:0]Status
 );
     always @(posedge clk, posedge rst) begin
@@ -36,6 +36,8 @@ module ID_Stage_Reg(
             Signed_immidiate_24 <= 24'b0;
             Dest <= 4'b0;
             Status <= 4'b0;
+            rn <= 4'b0;
+            rm <= 4'b0;
 		end
         else begin
             PC <= PC_in;
@@ -52,6 +54,8 @@ module ID_Stage_Reg(
             Signed_immidiate_24 <= Signed_immidiate_24_in;
             Dest <= Dest_in;
             Status <= Status_in;
+            rn <= rn_in;
+            rm <= rm_in;
         end 
     end
     
@@ -71,6 +75,8 @@ module ID_Stage_Reg(
             Signed_immidiate_24 <= 24'b0;
             Dest <= 4'b0;
             Status <= 4'b0;
+            rn <= 4'b0;
+            rm <= 4'b0;
         end
     end
 endmodule

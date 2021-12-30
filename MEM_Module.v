@@ -5,10 +5,9 @@ module MEM_Module(
     input [31:0] alu_res, val_rm,
     output write_back_enable_out, mem_read_enable_out, 
     output [3:0] dest_out,
-    output [31:0] alu_res_out, mem_out
+    output [31:0] alu_res_out, mem, mem_out
 );
 
-    wire [31:0] mem;
     MEM_Stage logic_process(
         clk, rst, mem_read_enable, mem_write_enable, alu_res, val_rm, mem
     );

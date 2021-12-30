@@ -5,7 +5,7 @@ module test_bench();
   always #20 clk = ~clk;
 
   initial begin
-    #30 rst = 0;
+    #10 rst = 0;
     #20000 $stop;
   end
   top_level arm(clk, rst, forwardin_en);

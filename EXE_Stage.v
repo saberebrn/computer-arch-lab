@@ -9,9 +9,8 @@ module EXE_Stage(
     output [31:0] jump_addr, alu_out, final_Rm
 );
     
-    wire [31:0] val2, jump_addr_tmp, final_Rn;
-    assign jump_addr_tmp = PC_in + {{8{Signed_immidiate_24[23]}}, Signed_immidiate_24};
-    assign jump_addr = {jump_addr_tmp[31:2], 2'b00};
+    wire [31:0] val2, final_Rn;
+    assign jump_addr = PC_in + {{6{Signed_immidiate_24[23]}}, Signed_immidiate_24, 2'b00};
 
     assign final_Rm = val_rm_sel == 2'b00 ? Val_Rm
             : val_rm_sel == 2'b01 ? Val_Rm_exe
