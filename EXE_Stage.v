@@ -9,7 +9,7 @@ module EXE_Stage(
     output [31:0] jump_addr, alu_out, final_Rm
 );
     
-    wire [31:0] val2, jump_addr_tmp, final_Rn, final_Rm;
+    wire [31:0] val2, jump_addr_tmp, final_Rn;
     assign jump_addr_tmp = PC_in + {{8{Signed_immidiate_24[23]}}, Signed_immidiate_24};
     assign jump_addr = {jump_addr_tmp[31:2], 2'b00};
 
